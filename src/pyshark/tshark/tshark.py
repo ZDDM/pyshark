@@ -110,14 +110,8 @@ def get_tshark_version(tshark_path=None):
     return version_string
 
 def get_tshark_display_filter_flag(tshark_path=None):
-    """
-    Returns '-Y' for tshark versions >= 1.10.0 and '-R' for older versions.
-    """
-    tshark_version = get_tshark_version(tshark_path)
-    if LooseVersion(tshark_version) >= LooseVersion("1.10.0"):
-        return '-Y'
-    else:
-        return '-R'
+    ''' Always expect Tshark to be version >= 1.10.0 '''
+    return '-Y'
 
 def get_tshark_interfaces(tshark_path=None):
     """
