@@ -120,6 +120,6 @@ def get_tshark_interfaces(tshark_path=None):
 	internally to capture on multiple interfaces.
 	"""
 	parameters = [get_tshark_path(tshark_path), '-D']
-	tshark_interfaces = check_output(parameters).decode("ascii")
+	tshark_interfaces = check_output(parameters).decode("utf-8")
 	
 	return [line.split('.')[0] for line in tshark_interfaces.splitlines()]
