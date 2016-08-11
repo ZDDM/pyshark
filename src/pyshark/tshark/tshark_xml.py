@@ -15,7 +15,7 @@ def psml_structure_from_xml(psml_structure):
 
 def packet_from_xml_packet(xml_pkt, psml_structure=None):
     """
-    Gets a TShark XML packet object or string, and returns a pyshark Packet objec.t
+    Gets a TShark XML packet object or string, and returns a pyshark Packet object.
 
     :param xml_pkt: str or xml object.
     :param psml_structure: a list of the fields in each packet summary in the psml data. If given, packets will
@@ -24,7 +24,7 @@ def packet_from_xml_packet(xml_pkt, psml_structure=None):
     """
     if not isinstance(xml_pkt, lxml.objectify.ObjectifiedElement):
         parser = lxml.objectify.makeparser(huge_tree=True)
-        xml_pkt = lxml.objectify.fromstring(xml_pkt, parser)
+        xml_pkt = lxml.objectify.fromstring(str(xml_pkt, encoding="utf-8"), parser)
     if psml_structure:
         return _packet_from_psml_packet(xml_pkt, psml_structure)
     return _packet_from_pdml_packet(xml_pkt)
