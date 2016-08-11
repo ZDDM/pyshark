@@ -24,7 +24,10 @@ def packet_from_xml_packet(xml_pkt, psml_structure=None):
     """
     if not isinstance(xml_pkt, lxml.objectify.ObjectifiedElement):
         parser = lxml.objectify.makeparser(huge_tree=True)
-        xml_pkt = lxml.objectify.fromstring(str(xml_pkt, encoding="utf-8"), parser)
+        try:
+            xml_pkt = lxml.objectify.fromstring(str(xml_pkt, encoding="utf-8"), parser)
+        except UnicodeError:
+            xml_pkt = lxml.objectify.fromstring(str(xml_pkt, encoding="ISO-8859-1"), parser)
     if psml_structure:
         return _packet_from_psml_packet(xml_pkt, psml_structure)
     return _packet_from_pdml_packet(xml_pkt)

@@ -102,7 +102,10 @@ def get_tshark_path(tshark_path=None):
 
 def get_tshark_version(tshark_path=None):
 	parameters = [get_tshark_path(tshark_path), '-v']
-	version_output = check_output(parameters).decode("utf-8")
+    try:
+        version_output = check_output(parameters).decode("utf-8")
+    except UnicodeError:
+        version_output = check_output(parameters).decode("ISO-8859-1")
 	version_line = version_output.splitlines()[0]
 	version_string = version_line.split()[1]
 
@@ -120,6 +123,9 @@ def get_tshark_interfaces(tshark_path=None):
 	internally to capture on multiple interfaces.
 	"""
 	parameters = [get_tshark_path(tshark_path), '-D']
-	tshark_interfaces = check_output(parameters).decode("utf-8")
+    try:
+        tshark_interfaces = check_output(parameters).decode("utf-8")
+    except UnicodeError:
+        tshark_interfaces = check_output(parameters).decode("ISO-8859-1")
 
 	return [line.split('.')[0] for line in tshark_interfaces.splitlines()]
